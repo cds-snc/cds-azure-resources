@@ -1,10 +1,9 @@
-# Generic Project Template
+# CDS Repo to host terraform modules related to managing our azure infrastructure
 
-This repository provides some base files for setting up a repository at
-CDS. Plan is to create more project template for specific technologies:
+This repo is a collection of terraform modules and instantiations that are used to manage our azure infrastructure. 
 
-- project-template-terraform
-- project-template-python
-- project-template-nodejs
+Examples of the modules include:
+- gh_oidc - A module that creates an Azure AD application that can be used to authenticate users with GitHub using OIDC.
+- openai-azure - A module that creates and deploys the OpenAI GPT-4 API on it.
 
-Note that default community health files are maintained at https://github.com/cds-snc/.github 
+More documenation and resources coming up soon.

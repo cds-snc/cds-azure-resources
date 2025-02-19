@@ -1,0 +1,47 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04@sha256:167e522ad50971b29dda8c09faac30562fce5a7596f1aba765995728985184b8",
+	"features": {
+		"ghcr.io/devcontainers/features/azure-cli:1": {
+			"installBicep": true
+		},
+		"ghcr.io/devcontainers/features/terraform:1": {
+			"installTFsec": true,
+			"installTerraformDocs": true
+		},
+		"ghcr.io/devcontainers-contrib/features/checkov:1": {
+			"version": "latest"
+		}
+	},
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {		
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"ms-vscode.azurecli",
+				"hashicorp.terraform",
+				"github.copilot",
+				"ms-azuretools.vscode-bicep",
+				"msazurermtools.azurerm-vscode-tools",
+				"mhutchie.git-graph",
+				"eamodio.gitlens",
+				"esbenp.prettier-vscode",
+				"timonwong.shellcheck",
+				"GitHub.copilot-chat",
+				"hashicorp.hcl"
+			],
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh", 
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "/bin/zsh"
+					}
+				},
+				"[terraform]": {
+					"editor.formatOnSave": true
+				}
+			}
+		}
+	},
+	"postCreateCommand": "zsh .devcontainer/postCreateCommand.sh"
+}
