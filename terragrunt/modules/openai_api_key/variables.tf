@@ -45,8 +45,8 @@ variable "openai_deployments" {
     {
       name = "openai-gpt4o"
       model = {
-        name    = "gpt-4o"
-        version = "2024-08-06"
+        name    = "gpt-4"
+        version = "0613"
       }
       rai_policy_name = ""
     }
