@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: cds-azure-resources
+  description: A repository to host azure resources related to our organization
+  labels:
+    license: MIT
+spec:
+  type: website
+  lifecycle: experimental
+  owner: internal-sre
