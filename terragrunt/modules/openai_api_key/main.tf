@@ -56,6 +56,7 @@ resource "azurerm_cognitive_deployment" "deployment" {
   }
 
   scale {
-    type = "GlobalStandard"
+    type     = "GlobalStandard"
+    capacity = 50 # Represents 50,000 TPM
   }
 }

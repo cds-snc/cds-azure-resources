@@ -43,10 +43,10 @@ variable "openai_deployments" {
   }))
   default = [
     {
-      name = "openai-gpt4o"
+      name = "openai-gpt4o-mini"
       model = {
-        name    = "gpt-4o"
-        version = "2024-08-06"
+        name    = "gpt-4o-mini"
+        version = "2024-07-18"
       }
       rai_policy_name = ""
     }
