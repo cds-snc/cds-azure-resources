@@ -63,4 +63,5 @@ variable "subscription_id" {
 variable "tenant_id" {
   type        = string
   description = "The tenant ID to create resources in."
+  default     = null
 }
