@@ -56,7 +56,7 @@ variable "openai_deployments" {
 variable "budget_amount" {
   type        = number
   description = "The amount of money to spend on the Azure Cognitive Services account per month."
-  default     = 25.0
+  default     = 25
 }
 
 variable "budget_time_grain" {

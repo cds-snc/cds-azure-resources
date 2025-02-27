@@ -68,7 +68,7 @@ resource "azurerm_consumption_budget_resource_group" "openai_budget" {
   amount            = var.budget_amount
   time_grain        = var.budget_time_grain
 
-  # Let the budget alarm expire in 10 years. We basically want to send the budget alarm to the user for indeterminate, which is 10 years.
+  # Let the budget alarm expire in 10 years. We basically want to send the budget alarm to the user for indeterminate, which is currently max 10 years in the settings.
   time_period {
     start_date = "2025-02-01T00:00:00Z"
     end_date   = "2035-02-01T00:00:00Z"
@@ -78,7 +78,7 @@ resource "azurerm_consumption_budget_resource_group" "openai_budget" {
     threshold      = 80
     operator       = "EqualTo"
     threshold_type = "Forecasted"
-    # Send notifications to the SRE team when we are at 80% of the forecasted budget
+    # Send notifications to the SRE team and requestor email(s) when we are at 80% of the forecasted budget
     contact_emails = concat(
       ["sre-ifs@cds-snc.ca"],
       var.requestor_emails
