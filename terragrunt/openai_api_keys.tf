@@ -4,6 +4,7 @@ module "valentine_api_key" {
   name                       = "valentine"
   custom_subdomain_name      = "valentine"
   resource_group_name_prefix = "valentine"
+  requestor_emails           = ["max.neuvians@cds-snc.ca"]
 }
 
 module "ai_answers_api_key" {
@@ -12,4 +13,6 @@ module "ai_answers_api_key" {
   name                       = "ai-answers"
   custom_subdomain_name      = "ai-answers"
   resource_group_name_prefix = "ai-answers"
+  budget_amount              = 50
+  requestor_emails           = ["HamzaBelal.Aburaneh@cds-snc.ca"]
 }

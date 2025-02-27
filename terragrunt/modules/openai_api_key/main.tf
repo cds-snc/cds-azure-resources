@@ -60,3 +60,28 @@ resource "azurerm_cognitive_deployment" "deployment" {
     capacity = 50 # Represents 50,000 TPM
   }
 }
+
+# Create a budget alarm with default of $25/month
+resource "azurerm_consumption_budget_resource_group" "openai_budget" {
+  name              = "openai-budget"
+  resource_group_id = azurerm_resource_group.rg.id
+  amount            = var.budget_amount
+  time_grain        = var.budget_time_grain
+
+  # Let the budget alarm expire in 10 years. We basically want to send the budget alarm to the user for indeterminate, which is 10 years.
+  time_period {
+    start_date = "2025-02-01T00:00:00Z"
+    end_date   = "2035-02-01T00:00:00Z"
+  }
+  notification {
+    enabled        = true
+    threshold      = 80
+    operator       = "EqualTo"
+    threshold_type = "Forecasted"
+    # Send notifications to the SRE team when we are at 80% of the forecasted budget
+    contact_emails = concat(
+      ["sre-ifs@cds-snc.ca"],
+      var.requestor_emails
+    )
+  }
+}

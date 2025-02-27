@@ -52,3 +52,20 @@ variable "openai_deployments" {
     }
   ]
 }
+
+variable "budget_amount" {
+  type        = number
+  description = "The amount of money to spend on the Azure Cognitive Services account per month."
+  default     = 25.0
+}
+
+variable "budget_time_grain" {
+  type        = string
+  description = "The time period for the budget. The default is Monthly."
+  default     = "Monthly"
+}
+
+variable "requestor_emails" {
+  type        = list(string)
+  description = "The email address of the requestor of the api key."
+}
