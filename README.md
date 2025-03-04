@@ -1,9 +1,75 @@
-# CDS Repo to host terraform modules related to managing our azure infrastructure
+# CDS Azure Resources
 
-This repo is a collection of terraform modules and instantiations that are used to manage our azure infrastructure. 
+## Overview
+The CDS Azure Resources repository contains Terraform modules for managing cloud resources in Microsoft Azure. It is designed to help deploy and manage secure, scalable, and compliant cloud resources for CDS's (Canadian Digital Service) Azure environment.
 
-Examples of the modules include:
-- gh_oidc - A module that creates an Azure AD application that can be used to authenticate users with GitHub using OIDC.
-- openai-azure - A module that creates and deploys the OpenAI GPT-4 API on it.
+## Features
+- 🏗 **Infrastructure as Code (IaC)** using Terragrunt/Terraform
+- 🏢 **Management of Azure resources** via reusable modules
+- 🛠 **Automated CI/CD pipelines** for validation and deployment
 
-More documenation and resources coming up soon.
+## Getting Started
+
+### Prerequisites
+Ensure you have the following installed:
+- [Terragrunt](https://terragrunt.gruntwork.io/docs/getting-started/install/)
+- [Terraform](https://developer.hashicorp.com/terraform/downloads) (>= v1.4.0)
+- [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+- [Git](https://git-scm.com/downloads)
+- Access to Azure Subscription with necessary permissions
+
+### Clone the Repository
+```sh
+git clone https://github.com/cds-snc/cds-azure-resources.git
+cd cds-azure-resources
+```
+### Configure Azure Authentication
+Ensure you are authenticated to Azure before running Terraform:
+```
+az login
+az account set --subscription <your-subscription-id>
+```
+
+### Deploy Infrastructure
+Run the following Terraform commands:
+```
+terragrunt init      # Initialize the Terraform working directory
+terragrunt plan      # Preview changes before applying
+terragrunt apply     # Deploy resources to Azure
+```
+### Repository Structure
+```
+cds-azure-resources/
+terragrunt/
+│-- common /              # Common resources across all modules
+│-- moudules/             # Reusable Terraform modules 
+│-- *.tf    /             # Terraform files for resource definitions 
+README.md             # Project documentation (this file)
+```
+
+## Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork this repository
+2. Create a feature branch (`git checkout -b feature-name`)
+3. Commit your changes (`git commit -m "Add new feature"`)
+4. Push to GitHub (`git push origin feature-name`)
+5. Open a Pull Request and describe your changes
+
+## CI/CD and Automation
+
+- GitHub Actions are used to validate and deploy infrastructure changes.
+- Pull Requests trigger Terraform plan checks to ensure no unintended changes are introduced.
+- Changes are automatically deployed after approval and merge.
+
+## Issues & Support
+If you encounter any issues, please open a GitHub Issue.
+
+## License
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+## Authors
+Maintained by the Canadian Digital Service (CDS).
+
+---
