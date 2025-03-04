@@ -4,7 +4,7 @@
 The CDS Azure Resources repository contains Terraform modules for managing cloud resources in Microsoft Azure. It is designed to help deploy and manage secure, scalable, and compliant cloud resources for CDS's (Canadian Digital Service) Azure environment.
 
 ## Features
-- 🏗 **Infrastructure as Code (IaC)** using **Terraform**
+- 🏗 **Infrastructure as Code (IaC)** using Terragrunt/Terraform
 - 🏢 **Management of Azure resources** via reusable modules
 - 🛠 **Automated CI/CD pipelines** for validation and deployment
 
@@ -12,10 +12,11 @@ The CDS Azure Resources repository contains Terraform modules for managing cloud
 
 ### Prerequisites
 Ensure you have the following installed:
+- [Terragrunt](https://terragrunt.gruntwork.io/docs/getting-started/install/)
 - [Terraform](https://developer.hashicorp.com/terraform/downloads) (>= v1.4.0)
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
 - [Git](https://git-scm.com/downloads)
-- Access to **Azure Subscription** with necessary permissions
+- Access to Azure Subscription with necessary permissions
 
 ### Clone the Repository
 ```sh
@@ -32,9 +33,9 @@ az account set --subscription <your-subscription-id>
 ### Deploy Infrastructure
 Run the following Terraform commands:
 ```
-terraform init      # Initialize the Terraform working directory
-terraform plan      # Preview changes before applying
-terraform apply     # Deploy resources to Azure
+terragrunt init      # Initialize the Terraform working directory
+terragrunt plan      # Preview changes before applying
+terragrunt apply     # Deploy resources to Azure
 ```
 ### Repository Structure
 ```
