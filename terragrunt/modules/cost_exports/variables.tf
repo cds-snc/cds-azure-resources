@@ -3,6 +3,10 @@ variable "name" {
   description = "(Required) Specifies the name of the Cost Management Export. Changing this forces a new resource to be created."
 }
 
+variable "subscription_id" {
+  type        = string
+  description = "The subscription ID to create the storage account."
+}
 
 variable "primary_location" {
   type        = string
@@ -14,6 +18,7 @@ variable "primary_location" {
 variable "billing_account_id" {
   type        = string
   description = "(Required) The id of the billing account on which to create an export. Changing this forces a new resource to be created."
+  default     = "7039692"
 }
 
 variable "recurrence_type" {

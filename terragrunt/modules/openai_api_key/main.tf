@@ -40,6 +40,7 @@ resource "azurerm_cognitive_account" "openai" {
   custom_subdomain_name = var.custom_subdomain_name != "" ? "${var.custom_subdomain_name}-${random_string.azurerm_cognitive_account_name.result}" : random_string.azurerm_cognitive_account_name.result
   kind                  = "OpenAI" # Specifies an OpenAI resource
   sku_name              = var.sku  # SKU; adjust as needed
+  tags                  = var.tags
 }
 
 # Select and deploy the OpenAI model to the Cognitive Services account

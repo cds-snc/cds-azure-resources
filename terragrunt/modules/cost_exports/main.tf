@@ -1,10 +1,22 @@
+# Define the provider configuration
+
+provider "azurerm" {
+  skip_provider_registration = true
+  subscription_id            = var.subscription_id
+  features {}
+}
+
+# Get the current client configuration from the AzureRM provider.
+
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_resource_group" "cost_exports_rg" {
   name     = "cost-exports-rg"
   location = var.primary_location
 }
 
 resource "azurerm_storage_account" "cost_exports_storage" {
-  name                = "costexportsstorage"
+  name                = "cdscostexportsstorage"
   resource_group_name = azurerm_resource_group.cost_exports_rg.name
 
   location                 = var.primary_location

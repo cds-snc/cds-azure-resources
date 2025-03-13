@@ -69,3 +69,11 @@ variable "requestor_emails" {
   type        = list(string)
   description = "The email address of the requestor of the api key."
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "A mapping of tags to assign to the resource."
+  default = {
+    division = "CDS"
+  }
+}
