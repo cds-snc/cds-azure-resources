@@ -45,6 +45,6 @@ resource "azurerm_billing_account_cost_management_export" "this" {
 
   export_data_storage_location {
     container_id     = azurerm_storage_container.cost_exports_container.id
-    root_folder_path = var.root_folder_path
+    root_folder_path = "${var.root_folder_path}-${var.name}"
   }
 }
