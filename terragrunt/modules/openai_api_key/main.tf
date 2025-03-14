@@ -56,8 +56,8 @@ resource "azurerm_cognitive_deployment" "deployment" {
     version = each.value.model.version
   }
 
-  scale {
-    type     = "GlobalStandard"
+  sku {
+    name     = "GlobalStandard"
     capacity = 50 # Represents 50,000 TPM
   }
 }
