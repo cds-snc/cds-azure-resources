@@ -25,8 +25,8 @@ resource "azurerm_storage_account" "cost_exports_storage" {
 }
 
 resource "azurerm_storage_container" "cost_exports_container" {
-  name                 = "cost-exports-container"
-  storage_account_name = azurerm_storage_account.cost_exports_storage.name
+  name               = "cost-exports-container"
+  storage_account_id = azurerm_storage_account.cost_exports_storage.id
 }
 
 
