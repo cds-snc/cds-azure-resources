@@ -18,7 +18,7 @@ variable "primary_location" {
 variable "billing_account_id" {
   type        = string
   description = "(Required) The id of the billing account on which to create an export. Changing this forces a new resource to be created."
-  default     = "7039692"
+  default     = "/providers/Microsoft.Billing/billingAccounts/7039692"
 }
 
 variable "recurrence_type" {
