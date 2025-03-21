@@ -15,4 +15,32 @@ module "ai_answers_api_key" {
   resource_group_name_prefix = "ai-answers"
   budget_amount              = 50
   requestor_emails           = ["HamzaBelal.Aburaneh@cds-snc.ca"]
+
+  # Create additional deployments for AI answers. Deployments include gpt-40, text-embedding-3-small and the default gpt-4o-mini
+  openai_deployments = [{
+    name = "gpt-4o"
+    model = {
+      name    = "gpt-4o"
+      version = "2024-11-20"
+    }
+    rai_policy_name = ""
+    },
+    {
+      name = "text-embedding-3-large"
+      model = {
+        name    = "text=embedding-3-large"
+        version = "1"
+      }
+      rai_policy_name = ""
+
+    },
+    {
+      name = "openai-gpt4o-mini"
+      model = {
+        name    = "gpt-4o-mini"
+        version = "2024-07-18"
+      }
+      rai_policy_name = ""
+    }
+  ]
 }
