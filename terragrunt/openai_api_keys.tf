@@ -26,15 +26,6 @@ module "ai_answers_api_key" {
     rai_policy_name = ""
     },
     {
-      name = "text-embedding-3-large"
-      model = {
-        name    = "text=embedding-3-large"
-        version = "1"
-      }
-      rai_policy_name = ""
-
-    },
-    {
       name = "openai-gpt4o-mini"
       model = {
         name    = "gpt-4o-mini"
