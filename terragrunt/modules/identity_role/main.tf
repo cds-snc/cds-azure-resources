@@ -1,4 +1,3 @@
-
 # This Terraform module is used to manage Azure identities and roles.
 # It includes conditional creation of service principals, managed identities,
 # custom roles, and role assignments based on the provided variables.
@@ -45,8 +44,8 @@ locals {
 
 #========== PROVIDERS ==========
 provider "azurerm" {
-  skip_provider_registration = true
-  subscription_id            = var.subscription_id
+  resource_provider_registrations = "none"
+  subscription_id                 = var.subscription_id
   features {}
 }
 provider "azuread" {
