@@ -39,7 +39,7 @@ module "ai_answers_api_key" {
         name    = "text-embedding-3-large"
         version = "1"
       }
-
+      rai_policy_name = ""
     }
   ]
 }
