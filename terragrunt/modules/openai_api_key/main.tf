@@ -1,7 +1,7 @@
 # Define the provider configuration
 
 provider "azurerm" {
-  skip_provider_registration = true
+  resource_provider_registrations = "none"
   features {}
   subscription_id = var.subscription_id
 }
