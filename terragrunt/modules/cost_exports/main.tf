@@ -2,7 +2,7 @@
 
 provider "azurerm" {
   skip_provider_registration = true
-  subscription_id            = "2401a870-e4dd-4c61-ac84-0eaaafdb9039"
+  subscription_id            = var.subscription_id
   features {}
 }
 
