@@ -31,14 +31,14 @@ jobs:
 
         # Log into Azure
       - name: Azure Login using OIDC
-        uses: azure/login@a65d910e8af852a8061c627c456678983e180302 # v2.2.0
+        uses: azure/login@a457da9ea143d694b1b9c7c869ebb04ebe844ef5 # v2.3.0
         with:
           tenant-id: ${{ env.ARM_TENANT_ID }}
           client-id: ${{ env.ARM_CLIENT_ID }}
           subscription-id: ${{ env.ARM_TF_STATE_SUBSCRIPTION_ID}}
 
       - name: Terraform plan
-        uses: cds-snc/terraform-plan@d79bcf0eccf632a0ad9e9193072b42c970766c5b # v3.3.1
+        uses: cds-snc/terraform-plan@28de868605a2499187505c82b4f199abd8877b26 # v3.4.2
         env:
           ARM_USE_OIDC: true
           RESOURCE_GROUP_NAME: ${{ env.AZURE_RESOURCES_RESOURCE_GROUP_NAME}}
