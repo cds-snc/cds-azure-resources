@@ -59,7 +59,6 @@ resource "azurerm_cognitive_deployment" "deployment" {
   sku {
     name     = "GlobalStandard"
     capacity = coalesce(try(each.value.sku.capacity, null), 50)
-    # each.value.sku.capacity #coalesce(each.value.sku.capacity, 50) # If the capacity value is not set, then 50,000 TPM will be automatically set
   }
 }
 
