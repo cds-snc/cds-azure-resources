@@ -43,3 +43,40 @@ module "ai_answers_api_key" {
     }
   ]
 }
+
+module "platform_core_hackathon_api_key" {
+  source                     = "./modules/openai_api_key"
+  subscription_id            = "c4122b45-f2e3-4873-a7fe-b94c1ad2589f" # CDS-AI subscription
+  name                       = "platform_core_hackathon"
+  custom_subdomain_name      = "platform_core_hackathon"
+  resource_group_name_prefix = "platform_core_hackathon"
+  budget_amount              = 50
+  requestor_emails           = ["patrick.heard@cds-snc.ca"]
+
+  # Create additional deployments for AI answers. Deployments include gpt-40, text-embedding-3-small and the default gpt-4o-mini
+  openai_deployments = [{
+    name = "gpt-4o"
+    model = {
+      name    = "gpt-4o"
+      version = "2024-11-20"
+    }
+    rai_policy_name = ""
+    },
+    {
+      name = "openai-gpt4o-mini"
+      model = {
+        name    = "gpt-4o-mini"
+        version = "2024-07-18"
+      }
+      rai_policy_name = ""
+    },
+    {
+      name = "text-embedding-3-large"
+      model = {
+        name    = "text-embedding-3-large"
+        version = "1"
+      }
+      rai_policy_name = ""
+    }
+  ]
+}
