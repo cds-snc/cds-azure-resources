@@ -51,7 +51,7 @@ module "platform_core_hackathon_api_key" {
   custom_subdomain_name      = "platform_core_hackathon"
   resource_group_name_prefix = "platform_core_hackathon"
   budget_amount              = 50
-  requestor_emails           = ["patrick.heard@cds-snc.ca"]
+  requestor_emails           = ["platform-core-services@cds-snc.ca"]
 
   # Create additional deployments for AI answers. Deployments include gpt-40, text-embedding-3-small and the default gpt-4o-mini
   openai_deployments = [{
