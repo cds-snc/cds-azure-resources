@@ -73,7 +73,7 @@ resource "azurerm_consumption_budget_resource_group" "openai_budget" {
   # Let the budget alarm expire in 10 years. We basically want to send the budget alarm to the user for indeterminate, which is currently max 10 years in the settings.
   time_period {
     start_date = var.budget_start_date
-    end_date   = var.budget_end_date #try(var.end_date, null)  #var.end_date)
+    end_date   = var.budget_end_date 
   }
   notification {
     enabled        = true
