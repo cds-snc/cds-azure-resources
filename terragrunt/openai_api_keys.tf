@@ -69,14 +69,6 @@ module "platform_core_hackathon_api_key" {
         version = "2024-07-18"
       }
       rai_policy_name = ""
-    },
-    {
-      name = "text-embedding-3-large"
-      model = {
-        name    = "text-embedding-3-large"
-        version = "1"
-      }
-      rai_policy_name = ""
     }
   ]
 }
