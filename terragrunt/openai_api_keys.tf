@@ -23,6 +23,9 @@ module "ai_answers_api_key" {
       name    = "gpt-4o"
       version = "2024-11-20"
     }
+    sku = {
+      capacity = 200
+    }
     rai_policy_name = ""
     },
     {
@@ -30,6 +33,9 @@ module "ai_answers_api_key" {
       model = {
         name    = "gpt-4o-mini"
         version = "2024-07-18"
+      }
+      sku = {
+        capacity = 200
       }
       rai_policy_name = ""
     },
@@ -39,6 +45,10 @@ module "ai_answers_api_key" {
         name    = "text-embedding-3-large"
         version = "1"
       }
+      sku = {
+        capacity = 200
+      }
+
       rai_policy_name = ""
     }
   ]
@@ -47,9 +57,10 @@ module "ai_answers_api_key" {
 module "platform_core_hackathon_api_key" {
   source                     = "./modules/openai_api_key"
   subscription_id            = "c4122b45-f2e3-4873-a7fe-b94c1ad2589f" # CDS-AI subscription
-  name                       = "platform_core_hackathon"
-  custom_subdomain_name      = "platform_core_hackathon"
-  resource_group_name_prefix = "platform_core_hackathon"
+  name                       = "platform-core-hackathon"
+  custom_subdomain_name      = "platform-core-hackathon"
+  resource_group_name_prefix = "platform-core-hackathon"
+  budget_start_date          = "2025-05-01T00:00:00Z"
   budget_amount              = 50
   requestor_emails           = ["platform-core-services@cds-snc.ca"]
 

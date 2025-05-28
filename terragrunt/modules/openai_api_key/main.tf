@@ -58,7 +58,7 @@ resource "azurerm_cognitive_deployment" "deployment" {
 
   sku {
     name     = "GlobalStandard"
-    capacity = 50 # Represents 50,000 TPM
+    capacity = coalesce(try(each.value.sku.capacity, null), 50)
   }
 }
 
@@ -71,8 +71,8 @@ resource "azurerm_consumption_budget_resource_group" "openai_budget" {
 
   # Let the budget alarm expire in 10 years. We basically want to send the budget alarm to the user for indeterminate, which is currently max 10 years in the settings.
   time_period {
-    start_date = "2025-02-01T00:00:00Z"
-    end_date   = "2035-02-01T00:00:00Z"
+    start_date = var.budget_start_date
+    end_date   = var.budget_end_date 
   }
   notification {
     enabled        = true

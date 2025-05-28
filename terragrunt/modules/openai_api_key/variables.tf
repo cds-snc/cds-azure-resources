@@ -30,7 +30,6 @@ variable "subscription_id" {
   type        = string
   description = "The subscription ID to create the Azure Cognitive Services account."
 }
-
 variable "openai_deployments" {
   description = "(Optional) Specifies the deployments of the Azure OpenAI Service"
   type = list(object({
@@ -39,6 +38,9 @@ variable "openai_deployments" {
       name    = string
       version = string
     })
+    sku = optional(object({
+      capacity = optional(number)
+    }))
     rai_policy_name = string
   }))
   default = [
@@ -47,6 +49,9 @@ variable "openai_deployments" {
       model = {
         name    = "gpt-4o-mini"
         version = "2024-07-18"
+      }
+      sku = {
+        capacity = 50
       }
       rai_policy_name = ""
     }
@@ -63,6 +68,18 @@ variable "budget_time_grain" {
   type        = string
   description = "The time period for the budget. The default is Monthly."
   default     = "Monthly"
+}
+
+variable "budget_start_date" {
+  description = "Start date for the budget alarm (YYYY-MM-DDTHH:MM:SSZ)"
+  type        = string
+  default     = "2025-02-01T00:00:00Z" # Or set to the first of the current month
+}
+
+variable "budget_end_date" {
+  description = "End date for the budget alarm (YYYY-MM-DDTHH:MM:SSZ)"
+  type  = string
+  default = "2035-02-01T00:00:00Z"
 }
 
 variable "requestor_emails" {
