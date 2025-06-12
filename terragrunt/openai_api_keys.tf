@@ -62,6 +62,18 @@ module "ai_answers_api_key" {
       }
 
       rai_policy_name = ""
+    },
+    {
+      name = "openai-gpt41"
+      model = {
+        name    = "gpt-4.1"
+        version = "2025-04-14"
+      }
+      sku = {
+        capacity = 400
+      }
+
+      rai_policy_name = ""
     }
   ]
 }
