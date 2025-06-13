@@ -17,7 +17,7 @@ data "azuread_group" "dc_admins" {
 }
 
 resource "azuread_directory_role_assignment" "appreg_creator_to_dc_admins" {
-  role_id             = module.custom_entraid_roles_appreg.id
+  role_id             = module.custom_entraid_roles_appreg.object_id
   principal_object_id = data.azuread_group.dc_admins.object_id
 }
 

@@ -1,6 +1,6 @@
-output "id" {
-  description = "The ID of the custom directory role."
-  value       = azuread_custom_directory_role.this.id
+output "object_id" {
+  description = "The objectID of the custom directory role."
+  value       = azuread_custom_directory_role.this.object_id
 }
 
 output "display_name" {
