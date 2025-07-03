@@ -42,7 +42,7 @@ resource "azurerm_monitor_action_group" "SRE_GR_AG" {
 
   evaluation_frequency = "PT10M"
   window_duration     = "PT10M"
-  scopes             = [local.log_analytics_workspace_id]
+  scopes             = [data.azurerm_log_analytics_workspace.this.id]
   severity           = 2
 
   operator                = "GreaterThan"
