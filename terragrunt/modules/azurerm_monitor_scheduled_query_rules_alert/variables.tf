@@ -90,12 +90,6 @@ variable "action_groups" {
   default     = null
 }
 
-variable "custom_properties" {
-  description = "Custom properties to include with the alert"
-  type        = map(string)
-  default     = null
-}
-
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(string)

@@ -1,5 +1,5 @@
 locals {
-  subscription_id = "00000000-0000-0000-0000-000000000000"
+  subscription_id = "f27b081a-aa54-4ab4-9f26-a4c5375dc8fa" #CDS-Logging
   resource_group_name = "pubsec-central-logging-rg-prod"
   log_analytics_workspace_id = data.azurerm_log_analytics_workspace.this.id
   action_group_ids = [resource.azurerm_monitor_action_group.SRE_GR_AG.id]
