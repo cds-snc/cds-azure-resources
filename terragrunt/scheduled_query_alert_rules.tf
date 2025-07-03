@@ -14,16 +14,6 @@ locals {
   }
 }
 
-variable "SECURITY_EMAIL" {
-  description = "The email address for the security resolver group"
-  type        = string
-}
-
-variable "SRE_EMAIL" {
-  description = "The email address for the SRE resolver group"
-  type        = string
-}
-
 data "azurerm_log_analytics_workspace" "this" {
   name                = "log-analytics-workspace-prod"
   resource_group_name = local.resource_group_name
