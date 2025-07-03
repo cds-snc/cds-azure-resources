@@ -13,7 +13,7 @@ data "azurerm_client_config" "current" {}
 resource "azurerm_monitor_scheduled_query_rules_alert_v2" "this" {
   name                = var.name
   resource_group_name = var.resource_group_name
-  location            = var.location
+  location            = var.region
 
   evaluation_frequency = var.evaluation_frequency
   window_duration      = var.window_duration
@@ -33,7 +33,6 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "this" {
     for_each = var.action_groups != null ? [1] : []
     content {
       action_groups     = var.action_groups
-      custom_properties = var.custom_properties
     }
   }
 
