@@ -24,3 +24,13 @@ variable "secondary_location" {
   description = "Sets the location for \"secondary\" resources to be created in."
   default     = "canadaeast"
 }
+
+variable "SECURITY_EMAIL" {
+  description = "The email address for the security resolver group"
+  type        = string
+}
+
+variable "SRE_EMAIL" {
+  description = "The email address for the SRE resolver group"
+  type        = string
+}
