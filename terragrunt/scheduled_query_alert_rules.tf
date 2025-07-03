@@ -1,8 +1,11 @@
 locals {
   subscription_id = "f27b081a-aa54-4ab4-9f26-a4c5375dc8fa" #CDS-Logging
   resource_group_name = "pubsec-central-logging-rg-prod"
-  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.this.id
   action_group_ids = [resource.azurerm_monitor_action_group.SRE_GR_AG.id]
+  log_analytics_workspace_id = get_env("LOG_ANALYTICS_WORKSPACE_ID")
+  sre_email = get_env("SRE_EMAIL")
+  security_email = get_env("SECURITY_EMAIL")
+
   common_tags = {
     ClientOrganization = "cds-snc"
     CostCenter         = "sentinel"
