@@ -13,6 +13,12 @@ variable "resource_group_name" {
   type        = string
 }
 
+variable "region" {
+  description = "The Azure region where the resource will be created"
+  type        = string
+  default     = "canadacentral"
+}
+
 variable "evaluation_frequency" {
   description = "How often the scheduled query rule is evaluated"
   type        = string
