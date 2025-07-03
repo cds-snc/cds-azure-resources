@@ -1,13 +1,4 @@
-# Define the provider configuration
-
-provider "azurerm" {
-  resource_provider_registrations = "none"
-  features {}
-  subscription_id = var.subscription_id
-}
-
 # Get the current client configuration from the AzureRM provider.
-
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_monitor_scheduled_query_rules_alert_v2" "this" {
