@@ -38,4 +38,5 @@ variable "SRE_EMAIL" {
 variable "subscription_id" {
   description = "The subscription ID to use for the provider"
   type        = string
+  default = "f27b081a-aa54-4ab4-9f26-a4c5375dc8fa" # CDS-Logging
 }
