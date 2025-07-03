@@ -95,3 +95,13 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "sre_email" {
+  description = "Email address for the SRE team to receive alerts"
+  type        = string
+}
+
+variable "security_email" {
+  description = "Email address for the SRE team to receive alerts"
+  type        = string
+}
