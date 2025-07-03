@@ -95,8 +95,3 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-
-variable SECURITY_EMAIL {
-  description = "Email address for security notifications"
-  type        = string
-}
