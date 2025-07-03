@@ -5,6 +5,10 @@ locals {
   tenant_id            = get_env("ARM_TENANT_ID")
   resource_group_name  = get_env("AZURE_RESOURCES_RESOURCE_GROUP_NAME")
   storage_account_name = get_env("AZURE_RESOURCES_STORAGE_ACCOUNT_NAME")
+  log_analytics_workspace_id = get_env("LOG_ANALYTICS_WORKSPACE_ID")
+  sre_email = get_env("SRE_EMAIL")
+  security_email = get_env("SECURITY_EMAIL")
+
   division_tags = {
     internal_sre        = "CDS"
     digital_credentials = "DC"
