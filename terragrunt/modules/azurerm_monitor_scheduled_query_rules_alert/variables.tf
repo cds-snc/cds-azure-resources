@@ -40,7 +40,7 @@ variable "severity" {
   description = "The severity of the alert (0-4)"
   type        = number
   default     = 3
-  
+
   validation {
     condition     = var.severity >= 0 && var.severity <= 4
     error_message = "Severity must be between 0 and 4."
@@ -51,10 +51,10 @@ variable "operator" {
   description = "The operator used to compare the query result with the threshold"
   type        = string
   default     = "GreaterThan"
-  
+
   validation {
     condition = contains([
-      "Equals", "GreaterThan", "GreaterThanOrEqual", 
+      "Equals", "GreaterThan", "GreaterThanOrEqual",
       "LessThan", "LessThanOrEqual"
     ], var.operator)
     error_message = "Operator must be one of: Equals, GreaterThan, GreaterThanOrEqual, LessThan, LessThanOrEqual."
@@ -70,7 +70,7 @@ variable "time_aggregation_method" {
   description = "The aggregation method to apply to the query result"
   type        = string
   default     = "Count"
-  
+
   validation {
     condition = contains([
       "Average", "Count", "Maximum", "Minimum", "Total"

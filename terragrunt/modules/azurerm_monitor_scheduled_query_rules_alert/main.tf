@@ -19,7 +19,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "this" {
   window_duration      = var.window_duration
   scopes               = var.scopes
   severity             = var.severity
-  
+
   criteria {
     operator                = var.operator
     query                   = var.query
@@ -32,7 +32,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "this" {
   dynamic "action" {
     for_each = var.action_groups != null ? [1] : []
     content {
-      action_groups     = var.action_groups
+      action_groups = var.action_groups
     }
   }
 
