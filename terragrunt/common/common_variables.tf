@@ -34,8 +34,3 @@ variable "SRE_EMAIL" {
   description = "The email address for the SRE resolver group"
   type        = string
 }
-
-variable "subscription_id" {
-  description = "The subscription ID to use for the provider"
-  type        = string
-}
