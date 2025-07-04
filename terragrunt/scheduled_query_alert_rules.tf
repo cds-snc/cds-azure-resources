@@ -19,19 +19,19 @@ data "azurerm_log_analytics_workspace" "this" {
   resource_group_name = local.resource_group_name
 }
 
-resource "azurerm_monitor_action_group" "SRE_GR_AG" {
-  enabled             = true
-  location            = "global"
-  name                = "SRE-GR-AG"
-  resource_group_name = local.resource_group_name
-  short_name          = "Guardrails"
-  tags                = local.common_tags
-  email_receiver {
-    email_address           = var.SRE_EMAIL
-    name                    = "Internal SRE_-EmailAction-"
-    use_common_alert_schema = false
-  }
-}
+# resource "azurerm_monitor_action_group" "SRE_GR_AG" {
+#   enabled             = true
+#   location            = "global"
+#   name                = "SRE-GR-AG"
+#   resource_group_name = local.resource_group_name
+#   short_name          = "Guardrails"
+#   tags                = local.common_tags
+#   email_receiver {
+#     email_address           = var.SRE_EMAIL
+#     name                    = "Internal SRE_-EmailAction-"
+#     use_common_alert_schema = false
+#   }
+# }
 
 module "conditional_access_policy_modification" {
   source = "./modules/azurerm_monitor_scheduled_query_rules_alert"
@@ -52,7 +52,7 @@ module "conditional_access_policy_modification" {
 
   enabled = true
 
-  action_groups = local.action_group_ids
+  # action_groups = local.action_group_ids
   tags          = local.common_tags
 }
 
@@ -76,6 +76,6 @@ module "breakglass_account_signin_attempt" {
 
   enabled = true
 
-  action_groups = local.action_group_ids
+  # action_groups = local.action_group_ids
   tags          = local.common_tags
 }
