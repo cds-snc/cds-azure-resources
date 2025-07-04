@@ -14,6 +14,16 @@ locals {
   }
 }
 
+provider "azurerm" {
+  resource_provider_registrations = "none"
+  subscription_id            = var.subscription_id
+  features {
+  }
+}
+# Get the current client configuration from the AzureRM provider.
+data "azurerm_client_config" "current" {}
+
+
 data "azurerm_log_analytics_workspace" "this" {
   name                = "log-analytics-workspace-prod"
   resource_group_name = local.resource_group_name
