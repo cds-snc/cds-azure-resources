@@ -1,7 +1,7 @@
 locals {
   subscription_id     = "f27b081a-aa54-4ab4-9f26-a4c5375dc8fa" #CDS-Logging
   resource_group_name = "pubsec-central-logging-rg-prod"
-  action_group_ids    = [resource.azurerm_monitor_action_group.SRE_GR_AG.id]
+  # action_group_ids    = [resource.azurerm_monitor_action_group.SRE_GR_AG.id]
 
   common_tags = {
     ClientOrganization = "cds-snc"
