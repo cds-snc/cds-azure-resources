@@ -13,8 +13,8 @@ env:
   ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
   AZURE_RESOURCES_RESOURCE_GROUP_NAME: ${{ secrets.AZURE_RESOURCES_RESOURCE_GROUP_NAME }}
   AZURE_RESOURCES_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_RESOURCES_STORAGE_ACCOUNT_NAME }}
-  TF_VAR_SRE_EMAIL: ${{ secrets.SRE_EMAIL }}
-  TF_VAR_SECURITY_EMAIL: ${{ secrets.SECURITY_EMAIL }}
+  TF_VAR_sre_email: ${{ secrets.SRE_EMAIL }}
+  TF_VAR_security_email: ${{ secrets.SECURITY_EMAIL }}
 
 permissions:
   id-token: write

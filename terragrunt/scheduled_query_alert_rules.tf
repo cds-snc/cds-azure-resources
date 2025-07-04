@@ -9,7 +9,7 @@ locals {
     DataSensitivity    = "U"
     ProjectContact     = "Security@CDS"
     ProjectName        = "Sentinel"
-    TechnicalContact   = var.SECURITY_EMAIL
+    TechnicalContact   = var.security_email
     ssc_cbrid          = "21JA"
   }
 }
@@ -37,7 +37,7 @@ resource "azurerm_monitor_action_group" "SRE_GR_AG" {
   short_name          = "Guardrails"
   tags                = local.common_tags
   email_receiver {
-    email_address           = var.SRE_EMAIL
+    email_address           = var.sre_email
     name                    = "Internal SRE_-EmailAction-"
     use_common_alert_schema = false
   }
