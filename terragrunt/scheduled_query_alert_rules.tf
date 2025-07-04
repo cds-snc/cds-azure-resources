@@ -63,7 +63,7 @@ module "conditional_access_policy_modification" {
   enabled = true
 
   action_groups = local.action_group_ids
-  tags = local.common_tags
+  tags          = local.common_tags
 }
 
 
@@ -87,5 +87,5 @@ module "breakglass_account_signin_attempt" {
   enabled = true
 
   action_groups = local.action_group_ids
-  tags = local.common_tags
+  tags          = local.common_tags
 }
