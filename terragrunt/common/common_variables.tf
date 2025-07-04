@@ -25,12 +25,12 @@ variable "secondary_location" {
   default     = "canadaeast"
 }
 
-variable "SECURITY_EMAIL" {
+variable "security_email" {
   description = "The email address for the security resolver group"
   type        = string
 }
 
-variable "SRE_EMAIL" {
+variable "sre_email" {
   description = "The email address for the SRE resolver group"
   type        = string
 }
