@@ -15,11 +15,6 @@ terraform {
   }
 }
 
-provider "azurerm" {
-  subscription_id = var.subscription_id
-  features {}
-}
-
 provider "azapi" {
   use_msi = false
 }
