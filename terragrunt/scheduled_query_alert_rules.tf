@@ -1,5 +1,5 @@
 locals {
-  subscription_id     = "f27b081a-aa54-4ab4-9f26-a4c5375dc8fa" #CDS-Logging
+  subscription_id     = "6881deca-df81-4b95-ad54-103b0b100a1d" #CDS-SNC-Management
   resource_group_name = "cds-snc-mgmt"
   action_group_ids    = [resource.azurerm_monitor_action_group.SRE_GR_AG.id]
 
