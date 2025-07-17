@@ -1,6 +1,6 @@
 locals {
   subscription_id     = "f27b081a-aa54-4ab4-9f26-a4c5375dc8fa" #CDS-Logging
-  resource_group_name = "pubsec-central-logging-rg-prod"
+  resource_group_name = "cds-snc-mgmt"
   action_group_ids    = [resource.azurerm_monitor_action_group.SRE_GR_AG.id]
 
   common_tags = {
@@ -25,7 +25,7 @@ data "azurerm_client_config" "current" {}
 
 
 data "azurerm_log_analytics_workspace" "this" {
-  name                = "log-analytics-workspace-prod"
+  name                = "cds-snc-la"
   resource_group_name = local.resource_group_name
 }
 
