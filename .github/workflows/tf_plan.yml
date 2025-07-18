@@ -40,7 +40,7 @@ jobs:
           subscription-id: ${{ env.ARM_TF_STATE_SUBSCRIPTION_ID}}
 
       - name: Terraform plan
-        uses: cds-snc/terraform-plan@28de868605a2499187505c82b4f199abd8877b26 # v3.4.2
+        uses: cds-snc/terraform-plan@e710cb1446e5dfe69a0182603fb06b5282d7eb07 # v3.4.3
         env:
           ARM_USE_OIDC: true
           RESOURCE_GROUP_NAME: ${{ env.AZURE_RESOURCES_RESOURCE_GROUP_NAME}}
