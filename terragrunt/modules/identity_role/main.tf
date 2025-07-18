@@ -42,16 +42,6 @@ locals {
   tenant_id = coalesce(var.tenant_id, data.azurerm_client_config.current.tenant_id)
 }
 
-#========== PROVIDERS ==========
-provider "azurerm" {
-  resource_provider_registrations = "none"
-  subscription_id                 = var.subscription_id
-  features {}
-}
-provider "azuread" {
-  tenant_id = local.tenant_id
-}
-
 # Get the current client configuration from the AzureRM provider.
 
 data "azurerm_client_config" "current" {}

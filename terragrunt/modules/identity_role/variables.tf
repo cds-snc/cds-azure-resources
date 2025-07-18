@@ -55,11 +55,6 @@ variable "role_permissions" {
   default     = ["Microsoft.Resources/subscriptions/resourceGroups/read"]
 }
 
-variable "subscription_id" {
-  type        = string
-  description = "The subscription ID to create resources in."
-}
-
 variable "tenant_id" {
   type        = string
   description = "The tenant ID to create resources in."
