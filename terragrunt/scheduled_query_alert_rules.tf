@@ -82,7 +82,7 @@ module "breakglass_account_signin_attempt" {
   operator                = "GreaterThan"
   time_aggregation_method = "Count"
   threshold               = 0
-  query                   = "SigninLogs | where UserPrincipalName in ('ops1@cdssnc.onmicrosoft.com','ops2@cdssnc.onmicrosoft.com')"
+  query                   = "SigninLogs | where UserPrincipalName in (\"ops1@cdssnc.onmicrosoft.com\",\"ops2@cdssnc.onmicrosoft.com\")"
 
   enabled = true
 
