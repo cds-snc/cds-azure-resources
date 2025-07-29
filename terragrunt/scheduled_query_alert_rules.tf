@@ -41,11 +41,6 @@ resource "azurerm_monitor_action_group" "SRE_GR_AG" {
     name                    = "Internal SRE_-EmailAction-"
     use_common_alert_schema = false
   }
-  email_receiver {
-    name                    = "Security-Team"
-    email_address           = var.security_email
-    use_common_alert_schema = true
-  }
 }
 
 module "conditional_access_policy_modification" {
