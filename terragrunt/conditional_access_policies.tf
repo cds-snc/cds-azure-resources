@@ -94,6 +94,7 @@ module "block_non_macos" {
   included_platforms = ["all"]
 
   included_users  = ["All"]
+  excluded_users  = ["GuestsOrExternalUsers"]
   excluded_groups = ["86a827be-9f2d-46fe-992e-9445ec10e840", "bec61a23-7411-4854-af2e-ecc7391f5b90"]
 
   built_in_controls = ["block"]
