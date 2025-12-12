@@ -9,12 +9,13 @@ resource "azuread_conditional_access_policy" "this" {
     client_app_types = var.client_app_types
 
     users {
-      included_users  = var.included_users
-      included_groups = var.included_groups
-      included_roles  = var.included_roles
-      excluded_users  = var.excluded_users
-      excluded_groups = var.excluded_groups
-      excluded_roles  = var.excluded_roles
+      included_users                    = var.included_users
+      included_groups                   = var.included_groups
+      included_roles                    = var.included_roles
+      excluded_users                    = var.excluded_users
+      excluded_guests_or_external_users = var.excluded_guests_or_external_users
+      excluded_groups                   = var.excluded_groups
+      excluded_roles                    = var.excluded_roles
     }
 
     dynamic "applications" {
