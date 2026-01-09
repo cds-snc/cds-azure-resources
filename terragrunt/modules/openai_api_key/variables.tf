@@ -39,6 +39,7 @@ variable "openai_deployments" {
       version = string
     })
     sku = optional(object({
+      name     = optional(string)
       capacity = optional(number)
     }))
     rai_policy_name = string
@@ -51,6 +52,7 @@ variable "openai_deployments" {
         version = "2024-07-18"
       }
       sku = {
+        name     = "GlobalStandard"
         capacity = 50
       }
       rai_policy_name = ""
