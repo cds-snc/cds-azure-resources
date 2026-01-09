@@ -36,7 +36,6 @@ module "ai_answers_api_key" {
         version = "2024-07-18"
       }
       sku = {
-        name     = "Standard"
         capacity = 200
       }
       rai_policy_name = ""
