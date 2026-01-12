@@ -93,8 +93,9 @@ module "block_non_macos" {
   excluded_platforms = ["macOS", "linux"]
   included_platforms = ["all"]
 
-  included_users  = ["All"]
-  excluded_groups = ["86a827be-9f2d-46fe-992e-9445ec10e840", "bec61a23-7411-4854-af2e-ecc7391f5b90"]
+  included_users                    = ["All"]
+  excluded_guests_or_external_users = { external_tenants = ["9ed55846-8a81-4246-acd8-b1a01abfc0d1"], guests_or_external_user_types = ["b2bCollaborationGuest", "b2bCollaborationMembers"] } // ESDC Tenant
+  excluded_groups                   = ["86a827be-9f2d-46fe-992e-9445ec10e840", "bec61a23-7411-4854-af2e-ecc7391f5b90"]
 
   built_in_controls = ["block"]
   operator          = "OR"
