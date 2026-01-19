@@ -6,7 +6,9 @@ resource "azuread_conditional_access_policy" "this" {
   state        = var.state
 
   conditions {
-    client_app_types = var.client_app_types
+    client_app_types    = var.client_app_types
+    user_risk_levels    = length(var.user_risk_levels) > 0 ? var.user_risk_levels : null
+    sign_in_risk_levels = length(var.sign_in_risk_levels) > 0 ? var.sign_in_risk_levels : null
 
     users {
       included_users  = var.included_users
@@ -55,5 +57,15 @@ resource "azuread_conditional_access_policy" "this" {
   grant_controls {
     built_in_controls = var.built_in_controls
     operator          = var.operator
+  }
+
+  dynamic "session_controls" {
+    for_each = var.sign_in_frequency != null ? [var.sign_in_frequency] : []
+    content {
+      sign_in_frequency_authentication_type = session_controls.value.authentication_type
+      sign_in_frequency_interval            = session_controls.value.frequency_interval
+      sign_in_frequency                     = session_controls.value.value
+      sign_in_frequency_period              = session_controls.value.type
+    }
   }
 }

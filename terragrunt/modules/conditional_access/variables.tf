@@ -113,3 +113,29 @@ variable "device_filter" {
   })
   default = null
 }
+
+# Optional - user risk levels
+variable "user_risk_levels" {
+  description = "List of user risk levels (low, medium, high, none)"
+  type        = list(string)
+  default     = []
+}
+
+# Optional - sign-in risk levels
+variable "sign_in_risk_levels" {
+  description = "List of sign-in risk levels (low, medium, high, none)"
+  type        = list(string)
+  default     = []
+}
+
+# Optional - session controls
+variable "sign_in_frequency" {
+  description = "Sign-in frequency configuration"
+  type = object({
+    value               = optional(number)
+    type                = optional(string)
+    authentication_type = optional(string)
+    frequency_interval  = optional(string)
+  })
+  default = null
+}
