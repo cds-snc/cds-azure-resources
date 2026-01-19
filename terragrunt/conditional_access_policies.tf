@@ -151,7 +151,9 @@ module "password_change_high_user_risk" {
 
   included_applications = ["All"]
 
-  included_users = ["All"]
+  included_users  = ["All"]
+  excluded_users  = ["d5a09b2d-fc29-40de-8ae5-1b365c8b7709", "8540c75b-58c0-4ca3-89b2-bf2b7c0bb4f5"] # Break glass accounts (ops1, ops2)
+  excluded_groups = ["1b786f3c-bc0c-4edd-9b16-e0f96965f6b5"]                                         # Break glass accounts group
 
   user_risk_levels = ["high"]
 
