@@ -140,3 +140,26 @@ module "require_mfa_canada" {
   built_in_controls = ["mfa"]
   operator          = "OR"
 }
+
+module "password_change_high_user_risk" {
+  source = "./modules/conditional_access"
+
+  policy_name = "Password Changes - High User Risk"
+  state       = "enabled"
+
+  client_app_types = ["all"]
+
+  included_applications = ["All"]
+
+  included_users = ["All"]
+
+  user_risk_levels = ["high"]
+
+  sign_in_frequency = {
+    frequency_interval  = "everyTime"
+    authentication_type = "primaryAndSecondaryAuthentication"
+  }
+
+  built_in_controls = ["mfa", "passwordChange"]
+  operator          = "AND"
+}
