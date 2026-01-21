@@ -75,6 +75,42 @@ module "ai_answers_api_key" {
       }
 
       rai_policy_name = ""
+    },
+    {
+      name = "openai-gpt5"
+      model = {
+        name    = "gpt-5"
+        version = "2025-08-07"
+      }
+      sku = {
+        capacity = 200
+      }
+
+      rai_policy_name = ""
+    },
+    {
+      name = "openai-gpt5-mini"
+      model = {
+        name    = "gpt-5-mini"
+        version = "2025-08-07"
+      }
+      sku = {
+        capacity = 200
+      }
+
+      rai_policy_name = ""
+    },
+    {
+      name = "openai-gpt5-nano"
+      model = {
+        name    = "gpt-5-nano"
+        version = "2025-08-07"
+      }
+      sku = {
+        capacity = 200
+      }
+
+      rai_policy_name = ""
     }
   ]
 }
