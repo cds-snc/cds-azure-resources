@@ -77,9 +77,9 @@ module "ai_answers_api_key" {
       rai_policy_name = ""
     },
     {
-      name = "openai-gpt5"
+      name = "openai-gpt5-chat"
       model = {
-        name    = "gpt-5"
+        name    = "gpt-5-chat"
         version = "2025-08-07"
       }
       sku = {
