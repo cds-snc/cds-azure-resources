@@ -44,7 +44,7 @@ module "block_non_browser" {
   included_platforms = ["all"]
 
   included_users  = ["All"]
-  excluded_groups = ["86a827be-9f2d-46fe-992e-9445ec10e840", "9c8babe3-fe86-42b1-ace6-16734f559c60", "dda4f58f-e024-40da-9403-761270c5cc47"]
+  excluded_groups = ["86a827be-9f2d-46fe-992e-9445ec10e840", "9c8babe3-fe86-42b1-ace6-16734f559c60", "dda4f58f-e024-40da-9403-761270c5cc47", "5f5e7c7c-8001-4e9e-810d-85e8b8d53ca4"]
 
   built_in_controls = ["block"]
   operator          = "OR"
