@@ -99,6 +99,30 @@ module "ai_answers_api_key" {
       }
 
       rai_policy_name = ""
+    },
+    {
+      name = "openai-gpt51"
+      model = {
+        name    = "gpt-5.1"
+        version = "2025-11-13"
+      }
+      sku = {
+        capacity = 200
+      }
+
+      rai_policy_name = ""
+    },
+    {
+      name = "openai-gpt51-chat"
+      model = {
+        name    = "gpt-5.1-chat"
+        version = "2025-11-13"
+      }
+      sku = {
+        capacity = 200
+      }
+
+      rai_policy_name = ""
     }
   ]
 }
