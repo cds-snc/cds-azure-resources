@@ -137,7 +137,7 @@ module "platform_core_hackathon_api_key" {
   budget_amount              = 50
   requestor_emails           = ["platform-core-services@cds-snc.ca"]
 
-  # Create additional deployments for AI answers. Deployments include gpt-40, text-embedding-3-small and the default gpt-4o-mini
+  # Create additional deployments. Deployments include gpt-40, text-embedding-3-small and the default gpt-4o-mini
   openai_deployments = [{
     name = "gpt-4o"
     model = {
@@ -161,6 +161,29 @@ module "platform_core_hackathon_api_key" {
         version = "2"
       }
       rai_policy_name = ""
+    }
+  ]
+}
+
+module "dev_ai_api_key" {
+  source                     = "./modules/openai_api_key"
+  subscription_id            = "204b7832-86f3-4792-8e35-860862258324" # SRE Tools subscription
+  name                       = "dev-ai-api-key"
+  custom_subdomain_name      = "dev-ai-api-key"
+  resource_group_name_prefix = "dev-ai-api-key"
+  requestor_emails           = ["sylvia.mclaughlin@cds-snc.ca"]
+
+  openai_deployments = [{
+    name = "openai-gpt51"
+    model = {
+      name    = "gpt-5.1"
+      version = "2025-11-13"
+    }
+    sku = {
+      capacity = 500
+    }
+
+    rai_policy_name = ""
     }
   ]
 }
