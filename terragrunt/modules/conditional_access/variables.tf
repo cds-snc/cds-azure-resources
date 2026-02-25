@@ -53,6 +53,15 @@ variable "excluded_users" {
   default     = []
 }
 
+variable "excluded_guests_or_external_users" {
+  description = "Excluded guests or external users configuration"
+  type = object({
+    external_tenants              = list(string)
+    guests_or_external_user_types = list(string)
+  })
+  default = null
+}
+
 variable "excluded_groups" {
   description = "List of excluded groups"
   type        = list(string)
