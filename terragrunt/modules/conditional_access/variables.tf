@@ -121,6 +121,13 @@ variable "user_risk_levels" {
   default     = []
 }
 
+# Optional - authentication flows
+variable "authentication_flow_transfer_methods" {
+  description = "List of authentication flow transfer methods to include (e.g. deviceCodeFlow, authenticationTransfer)"
+  type        = list(string)
+  default     = []
+}
+
 # Optional - sign-in risk levels
 variable "sign_in_risk_levels" {
   description = "List of sign-in risk levels (low, medium, high, none)"
