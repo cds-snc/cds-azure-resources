@@ -6,9 +6,10 @@ resource "azuread_conditional_access_policy" "this" {
   state        = var.state
 
   conditions {
-    client_app_types    = var.client_app_types
-    user_risk_levels    = length(var.user_risk_levels) > 0 ? var.user_risk_levels : null
-    sign_in_risk_levels = length(var.sign_in_risk_levels) > 0 ? var.sign_in_risk_levels : null
+    client_app_types                     = var.client_app_types
+    user_risk_levels                     = length(var.user_risk_levels) > 0 ? var.user_risk_levels : null
+    sign_in_risk_levels                  = length(var.sign_in_risk_levels) > 0 ? var.sign_in_risk_levels : null
+    authentication_flow_transfer_methods = length(var.authentication_flow_transfer_methods) > 0 ? var.authentication_flow_transfer_methods : null
 
     users {
       included_users  = var.included_users

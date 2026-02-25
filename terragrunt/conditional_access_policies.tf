@@ -100,6 +100,23 @@ module "block_non_macos" {
   operator          = "OR"
 }
 
+module "block_device_code_flow" {
+  source = "./modules/conditional_access"
+
+  policy_name = "Block Device Code Flow"
+  state       = "enabled"
+
+  client_app_types                     = ["all"]
+  authentication_flow_transfer_methods = ["deviceCodeFlow"]
+
+  included_applications = ["All"]
+
+  included_users = ["All"]
+
+  built_in_controls = ["block"]
+  operator          = "OR"
+}
+
 module "block_tc_user_portal_access" {
   source = "./modules/conditional_access"
 
