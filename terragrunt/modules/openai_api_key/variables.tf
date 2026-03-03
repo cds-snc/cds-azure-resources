@@ -73,9 +73,9 @@ variable "budget_time_grain" {
 }
 
 variable "budget_start_date" {
-  description = "Start date for the budget alarm (YYYY-MM-DDTHH:MM:SSZ)"
+  description = "Start date for the budget alarm (YYYY-MM-DDTHH:MM:SSZ). Defaults to the first day of the current month at apply time."
   type        = string
-  default     = "2025-02-01T00:00:00Z" # Or set to the first of the current month
+  default     = null
 }
 
 variable "budget_end_date" {

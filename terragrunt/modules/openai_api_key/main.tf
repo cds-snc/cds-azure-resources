@@ -10,6 +10,12 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
+locals {
+  # Dynamically compute the first day of the current month so the budget start date
+  # never needs to be manually updated. Callers can still override via var.budget_start_date.
+  budget_start_date = coalesce(var.budget_start_date, "${formatdate("YYYY-MM", timestamp())}-01T00:00:00Z")
+}
+
 # This configuration generates a random string that is appended to resource names to ensure uniqueness, 
 # and then creates an Azure resource group and a Cognitive Services account of kind OpenAI. It conditionally 
 # uses user-supplied names or defaults to the random string, while also appending a user-defined prefix to the 
@@ -71,8 +77,14 @@ resource "azurerm_consumption_budget_resource_group" "openai_budget" {
 
   # Let the budget alarm expire in 10 years. We basically want to send the budget alarm to the user for indeterminate, which is currently max 10 years in the settings.
   time_period {
-    start_date = var.budget_start_date
+    start_date = local.budget_start_date
     end_date   = var.budget_end_date
+  }
+
+  # Ignore changes to time_period after initial creation. timestamp() is re-evaluated
+  # on every plan, which would otherwise cause perpetual drift once the budget exists.
+  lifecycle {
+    ignore_changes = [time_period]
   }
   notification {
     enabled        = true
