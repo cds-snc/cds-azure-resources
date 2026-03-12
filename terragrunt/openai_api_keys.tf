@@ -5,6 +5,30 @@ module "valentine_api_key" {
   custom_subdomain_name      = "valentine"
   resource_group_name_prefix = "valentine"
   requestor_emails           = ["max.neuvians@cds-snc.ca"]
+
+  openai_deployments = [{
+    name = "openai-gpt5-mini"
+    model = {
+      name    = "gpt-5-mini"
+      version = "2025-08-07"
+    }
+    sku = {
+      capacity = 200
+    }
+
+    rai_policy_name = ""
+    },
+    {
+      name = "openai-gpt4o-mini"
+      model = {
+        name    = "gpt-4o-mini"
+        version = "2024-07-18"
+      }
+      sku = {
+        capacity = 200
+      }
+      rai_policy_name = ""
+  }]
 }
 
 module "ai_answers_api_key" {
