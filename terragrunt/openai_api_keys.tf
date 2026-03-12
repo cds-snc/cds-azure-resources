@@ -17,17 +17,17 @@ module "valentine_api_key" {
     }
 
     rai_policy_name = ""
-  },
-  {
-    name = "openai-gpt4o-mini"
-    model = {
-      name    = "gpt-4o-mini"
-      version = "2024-07-18"
-    }
-    sku = {
-      capacity = 200
-    }
-    rai_policy_name = ""
+    },
+    {
+      name = "openai-gpt4o-mini"
+      model = {
+        name    = "gpt-4o-mini"
+        version = "2024-07-18"
+      }
+      sku = {
+        capacity = 200
+      }
+      rai_policy_name = ""
   }]
 }
 
