@@ -7,7 +7,7 @@ module "valentine_api_key" {
   requestor_emails           = ["max.neuvians@cds-snc.ca"]
 
   openai_deployments = [{
-    name = "openai-gpt5-mini"
+    name = "gpt-5-mini"
     model = {
       name    = "gpt-5-mini"
       version = "2025-08-07"
@@ -19,7 +19,7 @@ module "valentine_api_key" {
     rai_policy_name = ""
     },
     {
-      name = "openai-gpt4o-mini"
+      name = "gpt-4o-mini"
       model = {
         name    = "gpt-4o-mini"
         version = "2024-07-18"
