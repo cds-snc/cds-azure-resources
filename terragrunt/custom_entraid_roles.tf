@@ -13,7 +13,7 @@ module "custom_entraid_roles_appreg" {
 
 # Assign the custom role to the group 'GCIV Admins'
 data "azuread_group" "dc_admins" {
-  display_name = "GCIV Admins"
+  object_id = "dda4f58f-e024-40da-9403-761270c5cc47"
 }
 
 resource "azuread_directory_role_assignment" "appreg_creator_to_dc_admins" {
