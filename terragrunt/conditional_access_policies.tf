@@ -94,7 +94,7 @@ module "block_non_macos" {
   included_platforms = ["all"]
 
   included_users  = ["All"]
-  excluded_groups = ["86a827be-9f2d-46fe-992e-9445ec10e840", "bec61a23-7411-4854-af2e-ecc7391f5b90"]
+  excluded_groups = ["86a827be-9f2d-46fe-992e-9445ec10e840", "bec61a23-7411-4854-af2e-ecc7391f5b90", "0d95296d-9231-4eff-b32b-6fc3ce861fe1"]
 
   built_in_controls = ["block"]
   operator          = "OR"
@@ -181,4 +181,21 @@ module "password_change_high_user_risk" {
 
   built_in_controls = ["mfa", "passwordChange"]
   operator          = "AND"
+}
+
+module "mfa" {
+  source = "./modules/conditional_access"
+
+  policy_name = "MFA"
+  state       = "enabled"
+
+  client_app_types = ["all"]
+
+  included_applications = ["All"]
+
+  included_users  = ["All"]
+  excluded_groups = ["86a827be-9f2d-46fe-992e-9445ec10e840"]
+
+  built_in_controls = ["mfa"]
+  operator          = "OR"
 }
