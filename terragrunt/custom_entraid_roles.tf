@@ -11,9 +11,9 @@ module "custom_entraid_roles_appreg" {
   enabled      = true
 }
 
-# Assign the custom role to the group 'DC Admins'
+# Assign the custom role to the group 'GCIV Admins'
 data "azuread_group" "dc_admins" {
-  display_name = "DC Admins"
+  display_name = "GCIV Admins"
 }
 
 resource "azuread_directory_role_assignment" "appreg_creator_to_dc_admins" {
