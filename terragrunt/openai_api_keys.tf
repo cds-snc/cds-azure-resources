@@ -107,7 +107,7 @@ module "ai_answers_api_key" {
         version = "2025-08-07"
       }
       sku = {
-        capacity = 200
+        capacity = 400
       }
 
       rai_policy_name = ""
@@ -131,7 +131,7 @@ module "ai_answers_api_key" {
         version = "2025-11-13"
       }
       sku = {
-        capacity = 200
+        capacity = 400
       }
 
       rai_policy_name = ""
