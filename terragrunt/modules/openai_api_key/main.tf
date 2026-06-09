@@ -1,9 +1,14 @@
-# Define the provider configuration
-
-provider "azurerm" {
-  resource_provider_registrations = "none"
-  features {}
-  subscription_id = var.subscription_id
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.38.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = ">= 3.0"
+    }
+  }
 }
 
 # Get the current client configuration from the AzureRM provider.
@@ -16,9 +21,9 @@ locals {
   budget_start_date = coalesce(var.budget_start_date, "${formatdate("YYYY-MM", timestamp())}-01T00:00:00Z")
 }
 
-# This configuration generates a random string that is appended to resource names to ensure uniqueness, 
-# and then creates an Azure resource group and a Cognitive Services account of kind OpenAI. It conditionally 
-# uses user-supplied names or defaults to the random string, while also appending a user-defined prefix to the 
+# This configuration generates a random string that is appended to resource names to ensure uniqueness,
+# and then creates an Azure resource group and a Cognitive Services account of kind OpenAI. It conditionally
+# uses user-supplied names or defaults to the random string, while also appending a user-defined prefix to the
 # resource group name.
 
 # Create a random string to use in the resource group name

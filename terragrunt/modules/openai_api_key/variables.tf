@@ -26,10 +26,6 @@ variable "name" {
   description = "The name of the Cognitive Services account. If not specified, a random one will be generated."
 }
 
-variable "subscription_id" {
-  type        = string
-  description = "The subscription ID to create the Azure Cognitive Services account."
-}
 variable "openai_deployments" {
   description = "(Optional) Specifies the deployments of the Azure OpenAI Service"
   type = list(object({
@@ -80,8 +76,8 @@ variable "budget_start_date" {
 
 variable "budget_end_date" {
   description = "End date for the budget alarm (YYYY-MM-DDTHH:MM:SSZ)"
-  type  = string
-  default = "2035-02-01T00:00:00Z"
+  type        = string
+  default     = "2035-02-01T00:00:00Z"
 }
 
 variable "requestor_emails" {
