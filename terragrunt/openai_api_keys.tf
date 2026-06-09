@@ -1,5 +1,5 @@
 module "valentine_api_key" {
-  source                     = "./modules/openai_api_key"
+  source = "./modules/openai_api_key"
   providers = {
     azurerm = azurerm.sre_tools
   }
@@ -34,7 +34,7 @@ module "valentine_api_key" {
 }
 
 module "ai_answers_api_key" {
-  source                     = "./modules/openai_api_key"
+  source = "./modules/openai_api_key"
   providers = {
     azurerm = azurerm.dto
   }
@@ -157,7 +157,7 @@ module "ai_answers_api_key" {
 
 
 module "dev_ai_api_key" {
-  source                     = "./modules/openai_api_key"
+  source = "./modules/openai_api_key"
   providers = {
     azurerm = azurerm.sre_tools
   }
