@@ -1,6 +1,8 @@
 module "valentine_api_key" {
-  source                     = "./modules/openai_api_key"
-  subscription_id            = "204b7832-86f3-4792-8e35-860862258324" # SRE Tools subscription
+  source = "./modules/openai_api_key"
+  providers = {
+    azurerm = azurerm.sre_tools
+  }
   name                       = "valentine"
   custom_subdomain_name      = "valentine"
   resource_group_name_prefix = "valentine"
@@ -32,8 +34,10 @@ module "valentine_api_key" {
 }
 
 module "ai_answers_api_key" {
-  source                     = "./modules/openai_api_key"
-  subscription_id            = "5617b0eb-50cc-4fe6-b57e-021e6ec245f0" # DTO subscription
+  source = "./modules/openai_api_key"
+  providers = {
+    azurerm = azurerm.dto
+  }
   name                       = "ai-answers"
   custom_subdomain_name      = "ai-answers"
   resource_group_name_prefix = "ai-answers"
@@ -153,8 +157,10 @@ module "ai_answers_api_key" {
 
 
 module "dev_ai_api_key" {
-  source                     = "./modules/openai_api_key"
-  subscription_id            = "204b7832-86f3-4792-8e35-860862258324" # SRE Tools subscription
+  source = "./modules/openai_api_key"
+  providers = {
+    azurerm = azurerm.sre_tools
+  }
   name                       = "dev-ai-api-key"
   custom_subdomain_name      = "dev-ai-api-key"
   resource_group_name_prefix = "dev-ai-api-key"
