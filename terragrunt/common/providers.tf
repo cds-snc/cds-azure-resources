@@ -37,3 +37,10 @@ provider "azurerm" {
   features {}
 }
 
+provider "azurerm" {
+  alias                           = "cds-ai"
+  subscription_id                 = "c4122b45-f2e3-4873-a7fe-b94c1ad2589f"
+  resource_provider_registrations = "none"
+  features {}
+}
+

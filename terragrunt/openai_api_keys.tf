@@ -180,3 +180,30 @@ module "dev_ai_api_key" {
     }
   ]
 }
+
+module "qualtrix_openai" {
+  source = "./modules/openai_api_key"
+
+  providers = {
+    azurerm = azurerm.cds-ai
+  }
+
+  name                  = "qualtrix"
+  custom_subdomain_name = "qualtrix"
+  requestor_emails      = ["jeana.frost@cds-snc.ca"]
+
+  openai_deployments = [
+    {
+      name = "qualtrix-gpt-4o"
+      model = {
+        name    = "gpt-4o"
+        version = "2024-08-06"
+      }
+      sku = {
+        name     = "GlobalStandard"
+        capacity = 50
+      }
+      rai_policy_name = ""
+    }
+  ]
+}
