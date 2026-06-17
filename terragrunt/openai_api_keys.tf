@@ -207,3 +207,30 @@ module "qualtrix_openai" {
     }
   ]
 }
+
+module "qual_analysis_openai" {
+  source = "./modules/openai_api_key"
+
+  providers = {
+    azurerm = azurerm.cds-ai
+  }
+
+  name                  = "qual-analysis"
+  custom_subdomain_name = "qual-analysis"
+  requestor_emails      = ["brittney.brooks@cds-snc.ca"]
+
+  openai_deployments = [
+    {
+      name = "qual-analysis-gpt-4o"
+      model = {
+        name    = "gpt-4o"
+        version = "2024-08-06"
+      }
+      sku = {
+        name     = "GlobalStandard"
+        capacity = 50
+      }
+      rai_policy_name = ""
+    }
+  ]
+}
