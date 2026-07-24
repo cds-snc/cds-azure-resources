@@ -21,7 +21,7 @@ resource "azuread_application_flexible_federated_identity_credential" "ai_gatewa
 
 # Contributor role on the target subscription so workflows can create resources
 resource "azurerm_role_assignment" "ai_gateway_contributor_subscription" {
-  scope                = "/subscriptions/c4122b45-f2e3-4873-a7fe-b94c1ad2589f"
+  scope                = "/subscriptions/c4122b45-f2e3-4873-a7fe-b94c1ad2589f" # CDS-AI sub
   role_definition_name = "Contributor"
   principal_id         = azuread_service_principal.ai_gateway.object_id
 }
