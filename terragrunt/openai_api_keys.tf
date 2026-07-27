@@ -141,10 +141,10 @@ module "ai_answers_api_key" {
       rai_policy_name = ""
     },
     {
-      name = "openai-gpt51-chat"
+      name = "openai-gpt-chat-latest"
       model = {
-        name    = "gpt-5.1-chat"
-        version = "2025-11-13"
+        name    = "gpt-chat-latest"
+        version = "2026-05-05"
       }
       sku = {
         capacity = 200
