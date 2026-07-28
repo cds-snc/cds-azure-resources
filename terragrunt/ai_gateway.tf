@@ -9,14 +9,24 @@ resource "azuread_service_principal" "ai_gateway" {
   client_id = azuread_application_registration.ai_gateway.client_id
 }
 
-# Flexible Federated Identity Credential for the ai-gateway repository
-resource "azuread_application_flexible_federated_identity_credential" "ai_gateway_github_oidc" {
-  application_id             = azuread_application_registration.ai_gateway.id
-  display_name               = "github-actions-ai-gateway"
-  description                = "OIDC for GitHub Actions in cds-snc/ai-gateway"
-  audience                   = "api://AzureADTokenExchange"
-  issuer                     = "https://token.actions.githubusercontent.com"
-  claims_matching_expression = "claims['subs'] matches 'repo:cds-snc/ai-gateway:*'"
+# Federated Identity Credential for pull_request events
+resource "azuread_application_federated_identity_credential" "ai_gateway_github_oidc_pr" {
+  application_id = azuread_application_registration.ai_gateway.id
+  display_name   = "github-actions-ai-gateway-pr-exact"
+  description    = "OIDC for GitHub Actions pull_request in cds-snc/ai-gateway"
+  audiences      = ["api://AzureADTokenExchange"]
+  issuer         = "https://token.actions.githubusercontent.com"
+  subject        = "repo:cds-snc/ai-gateway:pull_request"
+}
+
+# Federated Identity Credential for pushes to main
+resource "azuread_application_federated_identity_credential" "ai_gateway_github_oidc_main" {
+  application_id = azuread_application_registration.ai_gateway.id
+  display_name   = "github-actions-ai-gateway-main-exact"
+  description    = "OIDC for GitHub Actions main branch in cds-snc/ai-gateway"
+  audiences      = ["api://AzureADTokenExchange"]
+  issuer         = "https://token.actions.githubusercontent.com"
+  subject        = "repo:cds-snc/ai-gateway:ref:refs/heads/main"
 }
 
 # Contributor role on the target subscription so workflows can create resources
