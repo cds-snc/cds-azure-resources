@@ -16,7 +16,7 @@ resource "azuread_application_flexible_federated_identity_credential" "ai_gatewa
   description                = "OIDC for GitHub Actions in cds-snc/ai-gateway"
   audience                   = "api://AzureADTokenExchange"
   issuer                     = "https://token.actions.githubusercontent.com"
-  claims_matching_expression = "claims['matches'] eq 'repo:cds-snc/ai-gateway:*'"
+  claims_matching_expression = "claims['subs'] matches 'repo:cds-snc/ai-gateway:*'"
 }
 
 # Contributor role on the target subscription so workflows can create resources
