@@ -70,10 +70,9 @@ No OpenAI accounts remain in this subscription.
 
 ### Non-OpenAI Cognitive Services accounts
 
-| Subscription                | Resource group      | Account                | Kind            | Location      |
-| --------------------------- | ------------------- | ---------------------- | --------------- | ------------- |
-| Legacy Resources And GitHub | linguistic_services | linguistic-serv-global | TextTranslation | global        |
-| Legacy Resources And GitHub | sre_ops             | weblate-demo           | TextTranslation | canadacentral |
+| Subscription                | Resource group      | Account                | Kind            | Location |
+| --------------------------- | ------------------- | ---------------------- | --------------- | -------- |
+| Legacy Resources And GitHub | linguistic_services | linguistic-serv-global | TextTranslation | global   |
 
 ---
 
@@ -118,7 +117,7 @@ Defined in `terragrunt/openai_api_keys.tf` via the `modules/openai_api_key` modu
 
 ## Part 3 — Decommissioned 2026-08-10
 
-Removed as part of the AI Gateway consolidation ([#94](https://github.com/cds-snc/cds-azure-resources/issues/94)). All accounts were deleted **and purged** — soft-deleted Cognitive Services accounts continue to hold their quota until purged.
+Removed as part of the AI Gateway consolidation ([#94](https://github.com/cds-snc/cds-azure-resources/issues/94)). Soft-deleted Cognitive Services accounts continue to hold their quota and block name reuse until purged.
 
 | Account                | Subscription                | Resource group         | Model              | Freed TPM | How it was managed                                                                                  |
 | ---------------------- | --------------------------- | ---------------------- | ------------------ | --------- | --------------------------------------------------------------------------------------------------- |
@@ -128,11 +127,21 @@ Removed as part of the AI Gateway consolidation ([#94](https://github.com/cds-sn
 | dev-ai-api-key-yazzttz | SRE Tools                   | yazzttz-dev-ai-api-key | gpt-5.1 2025-11-13 | 500       | `module "dev_ai_api_key"`, removed in [#95](https://github.com/cds-snc/cds-azure-resources/pull/95) |
 | cds-sst-test           | Legacy Resources And GitHub | ops_calvin_test        | gpt-4o 2024-08-06  | 10        | Manual (no IaC)                                                                                     |
 
+All five OpenAI accounts above have been deleted **and purged**.
+
 **Quota released:** 18141 TPM, all in `canadaeast`. Post-purge `OpenAI.GlobalStandard.gpt-4o` usage is `0/90000` in Legacy and `100/90000` in CDS-AI (the residual 100 is qualtrix + qual-analysis at 50 each).
 
 Quota does not transfer between buckets — it is scoped to `subscription × region × model × deployment type`. The AI Gateway sits in `CDS-AI / canadacentral`, so none of the released `canadaeast` capacity is directly available to it.
 
 Resource groups `cds-notify-rg` and `ops_calvin_test` still exist; they hold non-OpenAI resources (Key Vault `kv-airesear135355726898`, storage `stairesearch135355726898` / `opsaitest`, and Event Grid system topics).
+
+### Also removed, outside the OpenAI consolidation
+
+| Account      | Subscription                | Resource group | Kind            | Status             |
+| ------------ | --------------------------- | -------------- | --------------- | ------------------ |
+| weblate-demo | Legacy Resources And GitHub | sre_ops        | TextTranslation | Deleted and purged |
+
+TextTranslation accounts do not consume Azure OpenAI TPM quota, so no capacity was released.
 
 ---
 
