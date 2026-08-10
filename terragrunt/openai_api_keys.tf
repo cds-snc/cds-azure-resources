@@ -156,31 +156,6 @@ module "ai_answers_api_key" {
 }
 
 
-module "dev_ai_api_key" {
-  source = "./modules/openai_api_key"
-  providers = {
-    azurerm = azurerm.sre_tools
-  }
-  name                       = "dev-ai-api-key"
-  custom_subdomain_name      = "dev-ai-api-key"
-  resource_group_name_prefix = "dev-ai-api-key"
-  requestor_emails           = ["sylvia.mclaughlin@cds-snc.ca"]
-
-  openai_deployments = [{
-    name = "openai-gpt51"
-    model = {
-      name    = "gpt-5.1"
-      version = "2025-11-13"
-    }
-    sku = {
-      capacity = 500
-    }
-
-    rai_policy_name = ""
-    }
-  ]
-}
-
 module "qualtrix_openai" {
   source = "./modules/openai_api_key"
 
