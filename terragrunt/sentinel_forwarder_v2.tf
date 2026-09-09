@@ -93,10 +93,12 @@ resource "azurerm_federated_identity_credential" "sentinel_forwarder_v2_aws_cogn
   subject                   = each.value.identity_id
 }
 
-# The Lambda needs the client id as ARM_CLIENT_ID; it is also the developer user
-# identifier passed to Cognito, which keeps the IdentityId mapping deterministic.
+# The Lambda needs the client id as AZURE_CLIENT_ID; it is also the developer
+# user identifier passed to Cognito, which keeps the IdentityId mapping
+# deterministic. (The layer reads AZURE_CLIENT_ID, not ARM_CLIENT_ID — see
+# create_client() and get_cognito_assertion() in aws-sentinel-connector-layer.)
 output "sentinel_forwarder_v2_aws_cognito_client_id" {
-  description = "Client id of the AWS forwarder managed identity — the Lambda's ARM_CLIENT_ID."
+  description = "Client id of the AWS forwarder managed identity — the Lambda's AZURE_CLIENT_ID."
   value       = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_cognito.client_id
 }
 

@@ -15,6 +15,23 @@ inputs = {
   cost_center_code = local.cost_center_code
   tenant_id        = local.tenant_id
   root_id          = "cds-snc"
+
+  # Cognito identities permitted to obtain a token as the AWS forwarder managed
+  # identity. One entry per AWS account that runs a forwarder: identity pools
+  # carry no resource policy, so a pool cannot be called cross-account.
+  #
+  # identity_id is the Cognito IdentityId and becomes the federated
+  # credential's subject. It does not exist until the pool mints one, which is
+  # why these are literals rather than references. Minted 2026-09-09 against
+  # the log archive pool (274536870005), keyed on the managed identity's client
+  # id as the developer user identifier — the same value the layer sends, which
+  # is what makes the mapping deterministic and repeatable.
+  sentinel_forwarder_v2_aws_cognito_identities = {
+    log_archive = {
+      identity_pool_id = "ca-central-1:754cc6c0-afac-48e9-8f0e-10abe6aa1270"
+      identity_id      = "ca-central-1:3febac30-753a-c09a-9582-594b28fe7806"
+    }
+  }
 }
 
 generate "provider" {
