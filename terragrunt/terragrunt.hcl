@@ -31,6 +31,10 @@ inputs = {
       identity_pool_id = "ca-central-1:754cc6c0-afac-48e9-8f0e-10abe6aa1270"
       identity_id      = "ca-central-1:3febac30-753a-c09a-9582-594b28fe7806"
     }
+    sre_tools = {
+      identity_pool_id = "ca-central-1:832b0507-5fcd-4db7-9feb-08e519621a21"
+      identity_id      = "ca-central-1:4206d6c3-6cfe-c144-9286-abc2bf60d550"
+    }
   }
 }
 
