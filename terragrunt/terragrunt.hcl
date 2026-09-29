@@ -35,6 +35,14 @@ inputs = {
       identity_pool_id = "ca-central-1:832b0507-5fcd-4db7-9feb-08e519621a21"
       identity_id      = "ca-central-1:4206d6c3-6cfe-c144-9286-abc2bf60d550"
     }
+    ai_answers_staging = {
+      identity_pool_id = "ca-central-1:233d7f98-a5ed-47ef-9810-a808e51d30a0"
+      identity_id      = "ca-central-1:e70e9f90-51aa-cdd7-431f-4a8f2064e089"
+    }
+    ai_answers_production = {
+      identity_pool_id = "ca-central-1:5e3652a3-4e56-49dc-87bf-d1a0d9c19b9a"
+      identity_id      = "ca-central-1:aa0b63d8-1dd3-cf43-9cbc-e8910d4d324b"
+    }
   }
 }
 
