@@ -106,3 +106,62 @@ output "sentinel_forwarder_v2_aws_cognito_principal_id" {
   description = "Object id of the AWS forwarder managed identity, for role assignments outside this module."
   value       = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_cognito.principal_id
 }
+
+# ---------------------------------------------------------------------------
+# Sentinel Forwarder v2 — User-Assigned Managed Identity for AWS Lambda,
+# federated from the hub role in Log Archive.
+#
+# Replaces the per-account Cognito pools above. Every forwarder assumes one
+# role in Log Archive, sentinel-forwarder-hub, and calls
+# sts:GetWebIdentityToken through that account's IAM outbound identity
+# federation. The token's subject is always the hub role's ARN, so one
+# credential here covers every AWS account, with no mint step.
+#
+# Which accounts may send data is decided in AWS, by the hub role's trust
+# policy (cds-snc/cds-aws-lz, terragrunt/org_account/main/sentinel_forwarder_hub.tf).
+# This side only checks the token's issuer, subject and audience.
+#
+# The Cognito identity above stays until its last consumer has moved.
+# Design: cds-snc/sentinel-connectors, docs/aws-forwarder-hub-federation-design.md
+# ---------------------------------------------------------------------------
+
+locals {
+  # Outputs of cds-aws-lz org_account/main. The issuer is fixed per AWS
+  # account: disabling and re-enabling federation returns the same URL.
+  sentinel_forwarder_v2_aws_hub_issuer   = "https://a1bc78a0-abfb-4482-a855-63201c908f74.tokens.sts.global.api.aws"
+  sentinel_forwarder_v2_aws_hub_role_arn = "arn:aws:iam::274536870005:role/sentinel-forwarder-hub"
+}
+
+resource "azurerm_user_assigned_identity" "sentinel_forwarder_v2_aws_hub" {
+  name                = "sentinel-forwarder-v2-aws-hub"
+  resource_group_name = data.azurerm_resource_group.cds_snc_mgmt.name
+  location            = var.primary_location
+  tags                = local.common_tags
+}
+
+# Same scope as the Cognito identity, for the same reason, and with the same
+# two consequences: it reaches every DCR in cds-snc-mgmt, and the group's
+# CanNotDelete lock makes the grant effectively permanent.
+resource "azurerm_role_assignment" "sentinel_forwarder_v2_aws_hub_metrics_publisher" {
+  scope                = data.azurerm_resource_group.cds_snc_mgmt.id
+  role_definition_name = "Monitoring Metrics Publisher"
+  principal_id         = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_hub.principal_id
+}
+
+resource "azurerm_federated_identity_credential" "sentinel_forwarder_v2_aws_hub" {
+  name                      = "aws-log-archive-hub"
+  user_assigned_identity_id = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_hub.id
+  audience                  = ["api://AzureADTokenExchange"]
+  issuer                    = local.sentinel_forwarder_v2_aws_hub_issuer
+  subject                   = local.sentinel_forwarder_v2_aws_hub_role_arn
+}
+
+output "sentinel_forwarder_v2_aws_hub_client_id" {
+  description = "Client id of the hub-federated AWS forwarder managed identity — the Lambda's AZURE_CLIENT_ID."
+  value       = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_hub.client_id
+}
+
+output "sentinel_forwarder_v2_aws_hub_principal_id" {
+  description = "Object id of the hub-federated AWS forwarder managed identity, for role assignments and sign-in log alerts."
+  value       = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_hub.principal_id
+}
