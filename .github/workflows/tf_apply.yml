@@ -40,10 +40,24 @@ jobs:
           client-id: ${{ env.ARM_CLIENT_ID }}
           subscription-id: ${{ env.ARM_TF_STATE_SUBSCRIPTION_ID}}
 
-      - name: Apply Terraform 
-        working-directory: terragrunt 
+      # cds-snc-mgmt carries a CanNotDelete lock, which also blocks deleting role
+      # assignments and child resources such as federated credentials, so any
+      # apply that destroys something in that group fails with ScopeLocked.
+      # Lift it for the apply and always put it back, as cds-snc/sentinel's
+      # apply does. The subscription is CDS-SNC-Management.
+      - name: Remove DeleteLock on cds-snc-mgmt
+        run: |
+          az lock delete --name DeleteLock --resource-group cds-snc-mgmt --subscription 6881deca-df81-4b95-ad54-103b0b100a1d
+
+      - name: Apply Terraform
+        working-directory: terragrunt
         env:
           ARM_USE_OIDC: true
         run: |
           terragrunt run-all init --terragrunt-non-interactive
           terragrunt apply --terragrunt-non-interactive -auto-approve
+
+      - name: Restore DeleteLock on cds-snc-mgmt
+        if: always()
+        run: |
+          az lock create --name DeleteLock --lock-type CanNotDelete --resource-group cds-snc-mgmt --subscription 6881deca-df81-4b95-ad54-103b0b100a1d
