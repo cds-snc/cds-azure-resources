@@ -32,96 +32,20 @@ resource "azurerm_role_assignment" "sentinel_forwarder_v2_metrics_publisher" {
 
 # ---------------------------------------------------------------------------
 # Sentinel Forwarder v2 — User-Assigned Managed Identity for AWS Lambda,
-# federated from Amazon Cognito.
-#
-# Used by the AWS forwarders (cds-snc/aws-sentinel-connector-layer) to reach the
-# Logs Ingestion API with no stored secret. A Lambda calls
-# cognito-identity:GetOpenIdTokenForDeveloperIdentity with only its IAM role,
-# then presents the resulting OIDC JWT to Entra as a client_assertion to get a
-# token for this identity.
-#
-# A managed identity rather than an app registration because a managed identity
-# cannot hold a client secret or certificate at all, so "no stored secret" is a
-# property of the object rather than a policy someone has to keep enforcing.
-# ---------------------------------------------------------------------------
-
-resource "azurerm_user_assigned_identity" "sentinel_forwarder_v2_aws_cognito" {
-  name                = "sentinel-forwarder-v2-aws-cognito"
-  resource_group_name = data.azurerm_resource_group.cds_snc_mgmt.name
-  location            = var.primary_location
-  tags                = local.common_tags
-}
-
-# Scoped to the whole resource group so one identity covers every DCR in
-# cds-snc-mgmt, current and future, without a grant per forwarder.
-#
-# Two consequences to be aware of, both accepted deliberately:
-#   - reach: this covers all DCRs in the group, not only the AWS ones;
-#   - permanence: cds-snc-mgmt carries a CanNotDelete lock, which blocks
-#     deleting role assignments as well as resources (`az role assignment
-#     delete` returns ScopeLocked), so this grant cannot be removed while the
-#     lock stands.
-resource "azurerm_role_assignment" "sentinel_forwarder_v2_aws_cognito_metrics_publisher" {
-  scope                = data.azurerm_resource_group.cds_snc_mgmt.id
-  role_definition_name = "Monitoring Metrics Publisher"
-  principal_id         = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_cognito.principal_id
-}
-
-# One credential per Cognito identity permitted to act as this managed identity.
-#
-# The subject is the Cognito IdentityId, which does not exist until the pool
-# mints one — so the order is: create the pool in the Lambda's own AWS account,
-# let it mint an identity, then add it here. Identity pools have no resource
-# policy, so a pool cannot be called cross-account; each AWS account running a
-# forwarder needs its own pool and therefore its own entry.
-variable "sentinel_forwarder_v2_aws_cognito_identities" {
-  description = "Cognito identities allowed to obtain a token as the AWS forwarder managed identity. Key is a short label (typically the AWS account or forwarder name); identity_pool_id becomes the credential audience and identity_id its subject."
-  type = map(object({
-    identity_pool_id = string
-    identity_id      = string
-  }))
-  default = {}
-}
-
-resource "azurerm_federated_identity_credential" "sentinel_forwarder_v2_aws_cognito" {
-  for_each = var.sentinel_forwarder_v2_aws_cognito_identities
-
-  name                      = "aws-cognito-${each.key}"
-  user_assigned_identity_id = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_cognito.id
-  audience                  = [each.value.identity_pool_id]
-  issuer                    = "https://cognito-identity.amazonaws.com"
-  subject                   = each.value.identity_id
-}
-
-# The Lambda needs the client id as AZURE_CLIENT_ID; it is also the developer
-# user identifier passed to Cognito, which keeps the IdentityId mapping
-# deterministic. (The layer reads AZURE_CLIENT_ID, not ARM_CLIENT_ID — see
-# create_client() and get_cognito_assertion() in aws-sentinel-connector-layer.)
-output "sentinel_forwarder_v2_aws_cognito_client_id" {
-  description = "Client id of the AWS forwarder managed identity — the Lambda's AZURE_CLIENT_ID."
-  value       = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_cognito.client_id
-}
-
-output "sentinel_forwarder_v2_aws_cognito_principal_id" {
-  description = "Object id of the AWS forwarder managed identity, for role assignments outside this module."
-  value       = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_cognito.principal_id
-}
-
-# ---------------------------------------------------------------------------
-# Sentinel Forwarder v2 — User-Assigned Managed Identity for AWS Lambda,
 # federated from the hub role in Log Archive.
 #
-# Replaces the per-account Cognito pools above. Every forwarder assumes one
-# role in Log Archive, sentinel-forwarder-hub, and calls
-# sts:GetWebIdentityToken through that account's IAM outbound identity
-# federation. The token's subject is always the hub role's ARN, so one
+# Used by the AWS forwarders (cds-snc/aws-sentinel-connector-layer) to reach the
+# Logs Ingestion API with no stored secret. Every forwarder assumes one role in
+# Log Archive, sentinel-forwarder-hub, and calls sts:GetWebIdentityToken
+# through that account's IAM outbound identity federation. The token's subject is always the hub role's ARN, so one
 # credential here covers every AWS account, with no mint step.
 #
 # Which accounts may send data is decided in AWS, by the hub role's trust
 # policy (cds-snc/cds-aws-lz, terragrunt/org_account/main/sentinel_forwarder_hub.tf).
 # This side only checks the token's issuer, subject and audience.
 #
-# The Cognito identity above stays until its last consumer has moved.
+# It replaced sentinel-forwarder-v2-aws-cognito, an identity federated from a
+# Cognito pool in each forwarder's account, removed once every pool was gone.
 # Design: cds-snc/sentinel-connectors, docs/aws-forwarder-hub-federation-design.md
 # ---------------------------------------------------------------------------
 
@@ -139,9 +63,10 @@ resource "azurerm_user_assigned_identity" "sentinel_forwarder_v2_aws_hub" {
   tags                = local.common_tags
 }
 
-# Same scope as the Cognito identity, for the same reason, and with the same
-# two consequences: it reaches every DCR in cds-snc-mgmt, and the group's
-# CanNotDelete lock makes the grant effectively permanent.
+# Scoped to the whole resource group so one identity covers every DCR in
+# cds-snc-mgmt, current and future, without a grant per forwarder. It reaches
+# every DCR in the group, not only the AWS ones. The group's CanNotDelete lock
+# blocks deleting role assignments too; the apply workflow lifts it.
 resource "azurerm_role_assignment" "sentinel_forwarder_v2_aws_hub_metrics_publisher" {
   scope                = data.azurerm_resource_group.cds_snc_mgmt.id
   role_definition_name = "Monitoring Metrics Publisher"
