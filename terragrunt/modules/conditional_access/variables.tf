@@ -11,14 +11,22 @@ variable "client_app_types" {
   type        = list(string)
 }
 
-variable "built_in_controls" {
-  description = "List of built-in controls"
-  type        = list(string)
-}
-
 variable "operator" {
   description = "Operator for grant controls"
   type        = string
+}
+
+# Optional - grant controls (set built_in_controls, authentication_strength_policy_id, or both)
+variable "built_in_controls" {
+  description = "List of built-in controls"
+  type        = list(string)
+  default     = null
+}
+
+variable "authentication_strength_policy_id" {
+  description = "ID of the authentication strength policy to require, e.g. /policies/authenticationStrengthPolicies/00000000-0000-0000-0000-000000000004 for the built-in Phishing-resistant MFA"
+  type        = string
+  default     = null
 }
 
 # Optional - state
