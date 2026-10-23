@@ -56,8 +56,9 @@ resource "azuread_conditional_access_policy" "this" {
   }
 
   grant_controls {
-    built_in_controls = var.built_in_controls
-    operator          = var.operator
+    built_in_controls                 = var.built_in_controls
+    authentication_strength_policy_id = var.authentication_strength_policy_id
+    operator                          = var.operator
   }
 
   dynamic "session_controls" {

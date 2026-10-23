@@ -199,3 +199,24 @@ module "mfa" {
   built_in_controls = ["mfa"]
   operator          = "OR"
 }
+
+module "gc_issue_verify_vpn_phishing_resistant_mfa" {
+  source = "./modules/conditional_access"
+
+  policy_name = "GC Issue & Verify VPN - Require Phishing Resistant MFA Every Sign-In"
+  state       = "enabled"
+
+  client_app_types = ["all"]
+
+  included_applications = ["3fe5a90c-832d-42d9-b8ce-920ba067a349"] # GC Issue & Verify - VPN Access
+
+  included_users = ["All"]
+
+  sign_in_frequency = {
+    frequency_interval  = "everyTime"
+    authentication_type = "primaryAndSecondaryAuthentication"
+  }
+
+  authentication_strength_policy_id = "/policies/authenticationStrengthPolicies/00000000-0000-0000-0000-000000000004" # Built-in Phishing-resistant MFA
+  operator                          = "OR"
+}
