@@ -73,6 +73,28 @@ resource "azurerm_role_assignment" "sentinel_forwarder_v2_aws_hub_metrics_publis
   principal_id         = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_hub.principal_id
 }
 
+# Forwarders that send to another team's workspace get the grant on that
+# team's DCRs only, never their resource group: every forwarder allowed to use
+# the hub can sign in as this identity, so a group-wide grant would let any of
+# them write to every table those DCRs feed. The DCRs live in the other team's
+# Terraform, so their ids are fixed here; recreating a DCR drops its grant.
+locals {
+  sentinel_forwarder_v2_aws_hub_gc_signin_dcrs = {
+    # gc-signin-terraform WAF logs; DCRs in cds-snc/gc-signin-sentinel
+    preprod_waf = "/subscriptions/98e438e3-06ba-4334-a713-d464675e3a88/resourceGroups/gc-signin-sentinel-rg/providers/Microsoft.Insights/dataCollectionRules/gc-signin-preprod-waf-dcr"
+    prod_waf    = "/subscriptions/98e438e3-06ba-4334-a713-d464675e3a88/resourceGroups/gc-signin-prod-sentinel-rg/providers/Microsoft.Insights/dataCollectionRules/gc-signin-prod-waf-dcr"
+  }
+}
+
+resource "azurerm_role_assignment" "sentinel_forwarder_v2_aws_hub_gc_signin" {
+  provider = azurerm.gc_signin_sentinel
+  for_each = local.sentinel_forwarder_v2_aws_hub_gc_signin_dcrs
+
+  scope                = each.value
+  role_definition_name = "Monitoring Metrics Publisher"
+  principal_id         = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_hub.principal_id
+}
+
 resource "azurerm_federated_identity_credential" "sentinel_forwarder_v2_aws_hub" {
   name                      = "aws-log-archive-hub"
   user_assigned_identity_id = azurerm_user_assigned_identity.sentinel_forwarder_v2_aws_hub.id

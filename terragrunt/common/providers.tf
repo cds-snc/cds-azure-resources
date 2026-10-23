@@ -19,9 +19,8 @@ provider "azapi" {
   use_msi = false
 }
 
-# Aliased providers for OpenAI module instances that target subscriptions
-# other than the default (CDS-SNC-Management) provider defined in
-# scheduled_query_alert_rules.tf.
+# Aliased providers for resources in subscriptions other than the default
+# (CDS-SNC-Management) provider defined in scheduled_query_alert_rules.tf.
 
 provider "azurerm" {
   alias                           = "sre_tools"
@@ -40,6 +39,13 @@ provider "azurerm" {
 provider "azurerm" {
   alias                           = "cds-ai"
   subscription_id                 = "c4122b45-f2e3-4873-a7fe-b94c1ad2589f"
+  resource_provider_registrations = "none"
+  features {}
+}
+
+provider "azurerm" {
+  alias                           = "gc_signin_sentinel"
+  subscription_id                 = "98e438e3-06ba-4334-a713-d464675e3a88"
   resource_provider_registrations = "none"
   features {}
 }
