@@ -200,10 +200,10 @@ module "mfa" {
   operator          = "OR"
 }
 
-module "gc_issue_verify_vpn_phishing_resistant_mfa" {
+module "gc_issue_verify_vpn_mfa" {
   source = "./modules/conditional_access"
 
-  policy_name = "GC Issue & Verify VPN - Require Phishing Resistant MFA Every Sign-In"
+  policy_name = "GC Issue & Verify VPN - Require MFA Every Sign-In"
   state       = "enabled"
 
   client_app_types = ["all"]
@@ -217,6 +217,11 @@ module "gc_issue_verify_vpn_phishing_resistant_mfa" {
     authentication_type = "primaryAndSecondaryAuthentication"
   }
 
-  authentication_strength_policy_id = "/policies/authenticationStrengthPolicies/00000000-0000-0000-0000-000000000004" # Built-in Phishing-resistant MFA
+  authentication_strength_policy_id = "/policies/authenticationStrengthPolicies/00000000-0000-0000-0000-000000000002" # Built-in Multifactor authentication
   operator                          = "OR"
+}
+
+moved {
+  from = module.gc_issue_verify_vpn_phishing_resistant_mfa
+  to   = module.gc_issue_verify_vpn_mfa
 }
